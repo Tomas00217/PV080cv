@@ -11,7 +11,8 @@ def transcode_file(request, filename):
 def load_config(filename):
     # Load a configuration file into YAML
     stream = file.open(filename, "w")
-    config = yaml.load(stream)
+    config = yaml.safe_load(stream)
+    return config
 
 
 def authenticate(password):
