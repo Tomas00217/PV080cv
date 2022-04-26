@@ -2,7 +2,6 @@ import subprocess
 import flask
 import yaml
 
-
 def transcode_file(request, filename):
     command = 'ffmpeg -i "{source}" output_file.mpg'.format(source=file)
     subprocess.call(command, shell=True)
@@ -23,7 +22,10 @@ def authenticate(password):
 
 def fetch_website(urllib_version, url):
     # Import the requested version of urllib
-    exec(f"import urllib{urllib_version} as urllib", globals())
+    module_name = "urllib"+urllib_version
+    urllib = __import__(module_name)
+
+    exec(globals())
     # Fetch and print the requested URL
     http = urllib.PoolManager()
     request = http.request('GET', url)
